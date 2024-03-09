@@ -56,6 +56,6 @@ resource "aws_wafv2_regex_pattern_set" "poc" {
 }
 
 resource "aws_wafv2_web_acl_association" "pocwafaclcnd" {
-  resource_arn = arn:aws:cloudfront::036965198866:distribution/E3BY8YQXVF0X0T
+  resource_arn = "arn:aws:cloudfront::036965198866:distribution/E3BY8YQXVF0X0T"
   web_acl_arn  = aws_wafv2_web_acl.pocawswaf.arn
 }
