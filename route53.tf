@@ -30,7 +30,6 @@ resource "aws_route53_record" "cert_validation" {
   name            = each.value.name
   records         = each.value.records
   type            = each.value.type
-  zone_id         = data.aws_route53_zone.zone.zone_id
 }
 
 # AWS Route53 record resource for the "www" subdomain. The record uses an "A" type record and an alias to the AWS CloudFront distribution with the specified domain name and hosted zone ID. The target health evaluation is set to false.
