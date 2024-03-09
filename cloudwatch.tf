@@ -11,7 +11,7 @@ resource "aws_cloudwatch_metric_alarm" "eks_cpu_utilization" {
   alarm_actions       = [aws_sns_topic.eks_notifications.arn]
 
   dimensions = {
-    ClusterName = aws_eks_cluster.eks_poc_main.name
+    ClusterName = aws_eks_cluster.demo.name
   }
 }
 
