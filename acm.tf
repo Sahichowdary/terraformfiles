@@ -1,6 +1,5 @@
 # ACM certificate resource with the domain name and DNS validation method, supporting subject alternative names
 resource "aws_acm_certificate" "cert" {
-  provider               = us-east-1
   domain_name            = var.domain-name
   subject_alternative_names = [var.domain-name]
   validation_method      = "DNS"
@@ -12,7 +11,6 @@ resource "aws_acm_certificate" "cert" {
 
 # ACM certificate validation resource using the certificate ARN and a list of validation record FQDNS
 resource "aws_acm_certificate_validation" "cert" {
-  provider          = us-east-1
   certificate_arn   = aws_acm_certificate.cert.arn
   validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
 }
