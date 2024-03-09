@@ -57,7 +57,7 @@ resource "aws_lb" "eks_network_load_balancer" {
   name               = "eks-network-lb"
   internal           = false
   load_balancer_type = "network"
-  subnets            = aws_subnet.private-us-east-1b.id
+  subnets            = [aws_subnet.private-us-east-1b.id, aws_subnet.private-us-east-1a.id]
   
   enable_cross_zone_load_balancing = true
 
