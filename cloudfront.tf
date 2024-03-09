@@ -1,7 +1,7 @@
 # Create CloudFront distribution
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   origin {
-    domain_name = 
+    domain_name = aws_lb.eks_network_load_balancer.dns_name
     origin_id   = "eks_network_load_balancer"
 
     custom_origin_config {
@@ -51,6 +51,24 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   tags = {
     Name = "eks-cloudfront-distribution"
   }
+}
+
+resource "aws_lb" "eks_network_load_balancer" {
+  name               = "eks-network-lb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = var.private_subnet_ids
+  
+  enable_cross_zone_load_balancing = true
+
+  tags = {
+    Name = "eks-network-lb"
+  }
+}
+
+variable "private_subnet_ids" {
+  type    = list(string)
+  default = ["aws_subnet.public-us-east-1b.id", "aws_subnet.public-us-east-1a.id"]
 }
 
 
