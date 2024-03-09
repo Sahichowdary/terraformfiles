@@ -1,11 +1,9 @@
-# AWS Route53 zone data source with the domain name and private zone set to false
+# AWS Route53 zone data source with the domain name
 data "aws_route53_zone" "zone" {
   name    = var.domain-name
-  
 }
 
 # AWS Route53 record resource for certificate validation with dynamic for each loop and properties for name, records, type, zone id, and ttl
-
 resource "aws_route53_record" "cert_validation" {
   for_each = {
     for dvo in aws_acm_certificate.cert.domain_validation_options :
@@ -13,6 +11,7 @@ resource "aws_route53_record" "cert_validation" {
       name    = dvo.resource_record_name
       records = [dvo.resource_record_value]
       type    = dvo.resource_record_type
+      ttl     = 300  # Example TTL value, adjust as needed
     }
   }
 
@@ -22,9 +21,10 @@ resource "aws_route53_record" "cert_validation" {
   name            = each.value.name
   records         = each.value.records
   type            = each.value.type
+  ttl             = each.value.ttl  # Set TTL based on each domain validation option
 }
 
-# AWS Route53 record resource for the "www" subdomain. The record uses an "A" type record and an alias to the AWS CloudFront distribution with the specified domain name and hosted zone ID. The target health evaluation is set to false.
+# AWS Route53 record resource for the "www" subdomain.
 resource "aws_route53_record" "www" {
   zone_id = data.aws_route53_zone.zone.zone_id
   name    = "www.${var.domain-name}"
@@ -37,7 +37,7 @@ resource "aws_route53_record" "www" {
   }
 }
 
-# AWS Route53 record resource for the apex domain (root domain) with an "A" type record. The record uses an alias to the AWS CloudFront distribution with the specified domain name and hosted zone ID. The target health evaluation is set to false.
+# AWS Route53 record resource for the apex domain (root domain).
 resource "aws_route53_record" "apex" {
   zone_id = data.aws_route53_zone.zone.zone_id
   name    = var.domain-name
