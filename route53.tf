@@ -18,14 +18,6 @@ resource "aws_route53_record" "cert_validation" {
 
   zone_id = data.aws_route53_zone.zone.zone_id
 
-  dynamic "record" {
-    for_each = each.value
-    content {
-      name    = record.value.name
-      records = record.value.records
-      type    = record.value.type
-    }
-  }
   allow_overwrite = true
   name            = each.value.name
   records         = each.value.records
