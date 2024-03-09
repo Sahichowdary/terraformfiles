@@ -21,11 +21,11 @@ resource "aws_wafv2_web_acl" "pocawswaf" {
             name = "referer"
           }
         }
-        text_transformations {
+        text_transformation {
           priority = 1
           type     = "NONE"
         }
-        regex_pattern_set_id = aws_wafv2_regex_pattern_set.example.id
+        regex_pattern_set_id = aws_wafv2_regex_pattern_set.poc.id
       }
     }
     visibility_config {
@@ -36,16 +36,16 @@ resource "aws_wafv2_web_acl" "pocawswaf" {
   }
 }
 
-resource "aws_wafv2_regex_pattern_set" "example" {
-  name        = "example-regex-pattern-set"
-  description = "Example Regex Pattern Set"
+resource "aws_wafv2_regex_pattern_set" "poc" {
+  name        = "poc-regex-pattern-set"
+  description = "poc Regex Pattern Set"
 
   regular_expression {
-    regex_string = "example.com"
+    regex_string = "saskenpoc.com"
   }
 }
 
-resource "aws_wafv2_web_acl_association" "example" {
+resource "aws_wafv2_web_acl_association" "pocwafaclcnd" {
   resource_arn = aws_cloudfront_distribution.eks_cloudfront_distribution.arn
-  web_acl_arn  = aws_wafv2_web_acl.example.arn
+  web_acl_arn  = aws_wafv2_web_acl.pocawswaf.arn
 }
