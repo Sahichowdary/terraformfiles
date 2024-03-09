@@ -30,7 +30,7 @@ resource "aws_wafv2_web_acl" "pocawswaf" {
             name = "referer"
           }
         }
-        text_transformations {
+        text_transformation {
           priority = 1
           type     = "NONE"
         }
