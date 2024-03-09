@@ -68,7 +68,7 @@ resource "aws_lb" "eks_network_load_balancer" {
 
 variable "private_subnet_ids" {
   type    = list(string)
-  default = ["aws_subnet.public-us-east-1b.id", "aws_subnet.public-us-east-1a.id"]
+  default = aws_subnet.private-us-east-1b.id
 }
 
 
