@@ -1,3 +1,8 @@
+resource "aws_db_subnet_group" "rds_subnetgroup" {
+  name      = "rds-subnet-main"
+  subnet_ids = [aws_subnet.private-us-east-1a.id, aws_subnet.private-us-east-1b.id]
+}
+
 resource "aws_db_instance" "my-pocsql" {
   allocated_storage    = var.rds.storage
   db_name              = "mysqlpoc_sasken"
