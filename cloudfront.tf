@@ -57,7 +57,7 @@ resource "aws_lb" "eks_network_load_balancer" {
   name               = "eks-network-lb"
   internal           = false
   load_balancer_type = "network"
-  subnets            = var.private_subnet_ids
+  subnets            = aws_subnet.private-us-east-1b.id
   
   enable_cross_zone_load_balancing = true
 
@@ -65,12 +65,6 @@ resource "aws_lb" "eks_network_load_balancer" {
     Name = "eks-network-lb"
   }
 }
-
-variable "private_subnet_ids" {
-  type    = list(string)
-  default = aws_subnet.private-us-east-1b.id
-}
-
 
 output "cloudfront_url" {
   value = aws_cloudfront_distribution.eks_cloudfront_distribution.domain_name
