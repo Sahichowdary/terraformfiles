@@ -54,25 +54,6 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
 }
 
 
-
-*/resource "aws_lb" "eks_network_load_balancer" {
-  name               = "eks-network-lb"
-  internal           = false
-  load_balancer_type = "network"
-  subnets            = var.private_subnet_ids
-  
-  enable_cross_zone_load_balancing = true
-
-  tags = {
-    Name = "eks-network-lb"
-  }
-}/*
-
-variable "private_subnet_ids" {
-  type    = list(string)
-  default = ["aws_subnet.vpc_private_subnet_private_1.id", "aws_subnet.vpc_private_subnet_private_2.id"]
-}
-
 output "cloudfront_url" {
   value = aws_cloudfront_distribution.eks_cloudfront_distribution.domain_name
 }
