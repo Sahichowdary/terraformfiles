@@ -17,7 +17,7 @@ resource "aws_security_group_rule" "mysql_inbound" {
   security_group_id = aws_security_group.db_security_group.id
 }
 
-resource "aws_security_group_rule" "mysql_inbound" {
+resource "aws_security_group_rule" "mysql_outbound" {
   type              = "egress"
   from_port         = 0
   to_port           = 65535
