@@ -66,12 +66,12 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   tags = {
     Name = "eks-network-lb"
   }
-}
+}/*
 
 variable "private_subnet_ids" {
   type    = list(string)
   default = ["aws_subnet.vpc_private_subnet_private_1.id", "aws_subnet.vpc_private_subnet_private_2.id"]
-}/*
+}
 
 output "cloudfront_url" {
   value = aws_cloudfront_distribution.eks_cloudfront_distribution.domain_name
