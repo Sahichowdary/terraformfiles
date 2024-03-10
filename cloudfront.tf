@@ -53,3 +53,36 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   }
 }
 
+
+# Create a Network Load Balancer (NLB) in the EKS region
+resource "aws_lb" "eks_nlb" {
+  name               = "eks-nlb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = ["private-us-east-1a", "private-us-east-1b"]  # Specify your subnets in the EKS region
+}
+
+# Create an AWS Global Accelerator
+resource "aws_globalaccelerator_accelerator" "global_accelerator" {
+  name               = "my-global-accelerator"
+  enabled            = true
+}
+
+# Create an endpoint group for the NLB
+resource "aws_globalaccelerator_endpoint_group" "nlb_endpoint_group" {
+  listener_arn      = aws_globalaccelerator_listener.listener.arn
+  endpoint_group_region = "ap-southeast-2"  # Specify the region where the NLB is deployed
+  endpoint_configurations {
+    endpoint_id = a173699949b2a4516bfebfa05d007725-1712453856.ap-southeast-2.elb.amazonaws.com
+  }
+}
+
+# Create a listener for the Global Accelerator
+resource "aws_globalaccelerator_listener" "listener" {
+  accelerator_arn = aws_globalaccelerator_accelerator.global_accelerator.arn
+  port_range {
+    from_port = 80
+    to_port   = 80
+  }
+  protocol = "TCP"
+}
