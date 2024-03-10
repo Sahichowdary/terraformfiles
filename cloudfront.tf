@@ -8,7 +8,7 @@ data "aws_lb" "eks_network_load_balancer" {
 # Create CloudFront distribution
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   origin {
-    domain_name = "a173699949b2a4516bfebfa05d007725-1712453856.ap-southeast-2.elb.amazonaws.com"
+    domain_name = aws_lb.eks_network_load_balancer.name
     origin_id   = "eks_network_load_balancer"
 
     custom_origin_config {
@@ -80,7 +80,7 @@ resource "aws_globalaccelerator_endpoint_group" "nlb_endpoint_group" {
   listener_arn      = "aws_globalaccelerator_listener.listener.arn"
   endpoint_group_region = "ap-southeast-2"  # Specify the region where the NLB is deployed
   endpoint_configuration {
-    endpoint_id = a173699949b2a4516bfebfa05d007725-1712453856.ap-southeast-2.elb.amazonaws.com
+    endpoint_id = aws_lb.eks_network_load_balancer.name
   }
 }
 
