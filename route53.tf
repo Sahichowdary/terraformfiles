@@ -31,7 +31,7 @@ resource "aws_route53_record" "cloudfront_alias" {
   type    = "A"
   alias {
     name                   = aws_globalaccelerator_accelerator.global_accelerator.dns_name
-    zone_id                = aws_globalaccelerator_accelerator.global_accelerator.zone_id
+    zone_id                = "aws_globalaccelerator_accelerator.global_accelerator.zone_id"
     evaluate_target_health = true
   }
 }
