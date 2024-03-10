@@ -70,7 +70,7 @@ resource "aws_globalaccelerator_accelerator" "global_accelerator" {
 
 # Create an endpoint group for the NLB
 resource "aws_globalaccelerator_endpoint_group" "nlb_endpoint_group" {
-  listener_arn      = aws_globalaccelerator_listener.listener.arn
+  listener_arn      = "aws_globalaccelerator_listener.listener.arn"
   endpoint_group_region = "ap-southeast-2"  # Specify the region where the NLB is deployed
   endpoint_configurations {
     endpoint_id = a173699949b2a4516bfebfa05d007725-1712453856.ap-southeast-2.elb.amazonaws.com
