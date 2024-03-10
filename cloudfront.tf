@@ -79,7 +79,7 @@ resource "aws_globalaccelerator_endpoint_group" "nlb_endpoint_group" {
 
 # Create a listener for the Global Accelerator
 resource "aws_globalaccelerator_listener" "listener" {
-  accelerator_arn = aws_globalaccelerator_accelerator.global_accelerator.arn
+  accelerator_arn = "aws_globalaccelerator_accelerator.global_accelerator.arn"
   port_range {
     from_port = 80
     to_port   = 80
