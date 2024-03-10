@@ -1,3 +1,10 @@
+data "aws_lb" "eks_network_load_balancer" {
+  name = a173699949b2a4516bfebfa05d007725-1712453856.ap-southeast-2.elb.amazonaws.com
+}
+
+
+
+
 # Create CloudFront distribution
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   origin {
