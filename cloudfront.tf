@@ -1,7 +1,7 @@
 # Create CloudFront distribution
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   origin {
-    domain_name = aws_lb.eks_network_load_balancer.dns_name
+    domain_name = a173699949b2a4516bfebfa05d007725-1712453856.ap-southeast-2.elb.amazonaws.com
     origin_id   = "eks_network_load_balancer"
 
     custom_origin_config {
