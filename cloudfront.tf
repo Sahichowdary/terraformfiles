@@ -1,14 +1,31 @@
-data "aws_lb" "eks_network_load_balancer" {
-  name = a173699949b2a4516bfebfa05d007725-1712453856.ap-southeast-2.elb.amazonaws.com
+# Define your Classic Load Balancer
+data "aws_elb" "my_classic_load_balancer" {
+  name               = "a173699949b2a4516bfebfa05d007725"
+  availability_zones = ["ap-southeast-2a", "ap-southeast-2b", "ap-southeast-2c"]  # Specify the availability zones for the load balancer
+  internal           = false                         # Set to true if the load balancer is internal
+  security_groups    = ["sg-12345678"]               # Specify the security groups for the load balancer
+  listeners {
+    instance_port     = 80                            # Port on the instances
+    instance_protocol = "HTTP"                        # Protocol to use for routing traffic to the instances
+    lb_port           = 80                            # Port on the load balancer
+    lb_protocol       = "HTTP"                        # Protocol to use for routing traffic from clients to the load balancer
+  }
+  health_check {
+    target              = "HTTP:80/"                  # Target for the health check (e.g., HTTP:80/)
+    interval            = 30                           # Interval (in seconds) between health checks
+    timeout             = 5                            # Timeout (in seconds) for each health check
+    healthy_threshold   = 2                            # Number of consecutive successful health checks required to consider an instance healthy
+    unhealthy_threshold = 2                            # Number of consecutive failed health checks required to consider an instance unhealthy
+  }
+  tags = {
+    Name = "a173699949b2a4516bfebfa05d007725"
+  }
 }
-
-
-
 
 # Create CloudFront distribution
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   origin {
-    domain_name = aws_lb.eks_network_load_balancer.name
+    domain_name = aws_lb.my_classic_load_balancer.domain_name
     origin_id   = "eks_network_load_balancer"
 
     custom_origin_config {
