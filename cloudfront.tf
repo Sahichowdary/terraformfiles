@@ -1,9 +1,9 @@
-
 # Create CloudFront distribution
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
+  depends_on = [aws_lb_target_group.eks_target_group]
   origin {
-    domain_name = aws_lb.existing_classic_load_balancer.domain_name
-    origin_id   = "a173699949b2a4516bfebfa05d007725"
+    domain_name = aws_lb_target_group.eks_target_group.arn
+    origin_id   = "eks_network_load_balancer"
 
     custom_origin_config {
       http_port              = 80
@@ -54,17 +54,6 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   }
 }
 
-
-# Define your Classic Load Balancer
-# Define data source to retrieve information about the existing Classic Load Balancer
-data "aws_elb" "existing_classic_load_balancer" {
-  name = "a173699949b2a4516bfebfa05d007725"  # Replace with the name of your existing CLB
+output "cloudfront_url" {
+  value = aws_cloudfront_distribution.eks_cloudfront_distribution.domain_name
 }
-
-
-# Create an AWS Global Accelerator
-resource "aws_globalaccelerator_accelerator" "global_accelerator" {
-  name               = "my-global-accelerator"
-  enabled            = true
-}
-
