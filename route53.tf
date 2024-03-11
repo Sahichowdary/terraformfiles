@@ -24,17 +24,6 @@ resource "aws_route53_record" "cert_validation" {
   ttl             = each.value.ttl  # Set TTL based on each domain validation option
 }
 
-# Create a Route 53 alias record pointing to the Global Accelerator
-resource "aws_route53_record" "cloudfront_alias" {
-  zone_id = data.aws_route53_zone.zone.zone_id
-  name    = var.domain-name
-  type    = "A"
-  alias {
-    name                   = aws_globalaccelerator_accelerator.global_accelerator.dns_name
-    zone_id                = "aws_globalaccelerator_accelerator.global_accelerator.zone_id"
-    evaluate_target_health = true
-  }
-}
 
 # AWS Route53 record resource for the "www" subdomain.
 resource "aws_route53_record" "www" {
