@@ -21,7 +21,7 @@ resource "aws_security_group" "nlb_sg" {
 resource "aws_lb" "nlb" {
   name               = "poc-nlb"
   load_balancer_type = "network"
-  subnets            = public-us-east-1a
+  subnets            = [private-us-east-1a.id, private-us-east-1a.id, public-us-east-1a.id, public-us-east-1a.id]
   security_groups    = [aws_security_group.nlb_sg.id]
 }
 
