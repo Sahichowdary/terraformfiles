@@ -2,7 +2,7 @@
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   depends_on = [aws_lb_target_group.eks_target_group]
   origin {
-    domain_name = aws_lb_target_group.eks_target_group.arn
+    domain_name = aws_lb_nlb.domain_name
     origin_id   = "eks_network_load_balancer"
 
     custom_origin_config {
