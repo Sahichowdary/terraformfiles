@@ -62,8 +62,6 @@ resource "aws_security_group_rule" "cloudfront_to_nlb" {
   protocol          = "tcp"
   security_group_id = aws_security_group.nlb_sg.id
 
-  # Allow traffic from CloudFront IP ranges
-  cidr_blocks = aws_cloudfront_distribution.eks_cloudfront_distribution.domain_name
 }
 
 output "cloudfront_url" {
