@@ -10,8 +10,8 @@ resource "aws_security_group" "db_security_group" {
 # Define inbound rule for MySQL port (3306)
 resource "aws_security_group_rule" "mysql_inbound" {
   type              = "ingress"
-  from_port         = 0
-  to_port           = 65535
+  from_port         = 3306
+  to_port           = 3306
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]  # Allow access from anywhere (adjust as needed)
   security_group_id = aws_security_group.db_security_group.id
