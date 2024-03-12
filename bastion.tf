@@ -34,7 +34,7 @@ resource "aws_security_group_rule" "db_from_bastion" {
   from_port         = 3306
   to_port           = 3306
   protocol          = "tcp"
-  security_group_id = aws_security_group.db_security_group.ids
+  security_group_id = aws_security_group.db_security_group.id
   source_security_group_id = aws_security_group.bastion_sg.id
 }
 
