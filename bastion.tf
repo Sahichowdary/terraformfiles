@@ -22,6 +22,7 @@ resource "aws_security_group" "bastion_sg" {
 # Create bastion host
 resource "aws_instance" "bastion_host-POC" {
   instance_type   = "t2.micro" # Set your desired instance type
+  ami             = "ami-07d9b9ddc6cd8dd30"
   subnet_id       = aws_subnet.public-us-east-1a.id
   security_groups = [aws_security_group.bastion_sg.name]
   key_name        = "aws-poc-demo"                          # Set your key name for SSH access
