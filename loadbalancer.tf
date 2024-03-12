@@ -50,18 +50,6 @@ resource "aws_security_group" "eks_sg" {
   }
 }
 
-# Create Auto Scaling Group
-resource "aws_autoscaling_group" "eks_node_group" {
-  name                      = "eks-node-group-autoscaling"
-  max_size                  = 3
-  min_size                  = 1
-  desired_capacity          = 2
-  vpc_zone_identifier       = aws_eks_node_group.private-nodes.subnet_ids
- }
-
-
-
-
 
 # Create Target Group for EKS Cluster
 resource "aws_lb_target_group" "eks_target_group" {
