@@ -1,4 +1,3 @@
-
 terraform {
   required_providers {
     aws = {
@@ -8,7 +7,11 @@ terraform {
   }
 }
 
-   backend "s3" {
+provider "aws" {
+  region = "us-east-1"
+}
+ 
+backend "s3" {
      bucket         = "pocterraformbackendjava"
      key            = "aws-poc-demo"
      region         = "us-east-1"
@@ -16,6 +19,3 @@ terraform {
      encrypt        = true
   }
 
- provider "aws" {
-  region = "us-east-1"
-}
