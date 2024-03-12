@@ -1,7 +1,7 @@
 # Update CloudFront distribution to point to NLB
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   origin {
-    domain_name = aws_lb.nlb.domain_name
+    domain_name = aws_lb.nlb.dns_name
     origin_id   = aws_lb.nlb.id
 
     custom_origin_config {
