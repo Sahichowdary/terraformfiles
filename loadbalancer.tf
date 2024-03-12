@@ -67,6 +67,6 @@ resource "aws_lb_target_group" "eks_target_group" {
 # Attach EKS Cluster Nodes to Target Group
 resource "aws_autoscaling_attachment" "eks_attachment" {
   depends_on             = [aws_lb_target_group.eks_target_group]
-  autoscaling_group_name = "aws_eks_node_group.private-nodes"
+  autoscaling_group_name = aws_autoscaling_group.eks_node_group.name
   alb_target_group_arn  = aws_lb_target_group.eks_target_group.arn
 }
