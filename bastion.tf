@@ -1,7 +1,7 @@
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-security-group"
   description = "Security group for the bastion host"
-  vpc_id      = aws_vpc.private.id
+  vpc_id      = aws_vpc.private_vpc.id
 
   ingress {
     from_port   = 22
