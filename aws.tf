@@ -1,6 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
 
 terraform {
   required_providers {
@@ -19,3 +16,6 @@ terraform {
      encrypt        = true
   }
 
+ provider "aws" {
+  region = "us-east-1"
+}
