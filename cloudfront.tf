@@ -1,9 +1,8 @@
 # Update CloudFront distribution to point to NLB
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
-  depends_on = [aws_lb_target_group.eks_target_group]
   origin {
-    domain_name = aws_lb.nlb.dns_name
-    origin_id   = aws_lb.nlb.id
+    domain_name = 
+    origin_id   = 
 
     custom_origin_config {
       http_port              = 80
