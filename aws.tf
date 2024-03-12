@@ -11,11 +11,11 @@ terraform {
   }
 }
 
-backend "s3" {
+  backend "s3" {
     bucket         = "pocterraformbackendjava"
     key            = "aws-poc-demo"
     region         = "us-east-1"
     dynamodb_table = "terraform_locks"
     encrypt        = true
   }
-}
+
