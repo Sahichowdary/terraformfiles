@@ -30,7 +30,6 @@ resource "aws_iam_role_policy_attachment" "eks_acces_poc_all" {
 resource "aws_eks_cluster" "demo" {
   name     = "demo"
   role_arn = aws_iam_role.demo.arn
-  kubernetes_version  = "latest"// Specify the version as "latest"
 
   vpc_config {
     subnet_ids = [
@@ -42,5 +41,8 @@ resource "aws_eks_cluster" "demo" {
   }
 
   depends_on = [aws_iam_role_policy_attachment.demo-AmazonEKSClusterPolicy]
+  enabled_cluster_version {
+    version = "latest"
+  }
 }
 
