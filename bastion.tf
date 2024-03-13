@@ -1,5 +1,5 @@
-resource "aws_security_group" "bastion_sg" {
-  name        = "bastion-security-group"
+resource "aws_security_group" "bastion_sg-poc" {
+  name        = "bastion-security-group-poc"
   description = "Security group for the bastion host"
   vpc_id      = aws_vpc.private_vpc.id
 
@@ -31,6 +31,7 @@ resource "aws_instance" "bastion_host-POC" {
   subnet_id       = aws_subnet.public-us-east-1a.id
   security_groups = [aws_security_group.bastion_sg.name]        # Corrected reference to security group name
   key_name        = "aws-poc-demo"                              # Set your key name for SSH access 
+  depends_on = [aws_db_instance.my-pocsql, aws_security_group.bastion_sg-poc]
   user_data       =  <<EOF
     #!/bin/bash
     apt sudo apt install mysql-server
