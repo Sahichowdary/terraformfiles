@@ -1,3 +1,30 @@
+Copy code
+# Create a security group for CloudFront
+resource "aws_security_group" "cloudfront_sg" {
+  name        = "cloudfront-sg"
+  description = "Security group for CloudFront"
+  vpc_id      = aws_vpc.private_vpc.id  # Specify the VPC ID where CloudFront will be deployed
+
+  ingress {
+    from_port   = 80
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allowing traffic from anywhere, you may restrict it as per your requirements
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "cloudfront-sg"
+  }
+}
+
+
 # Update CloudFront distribution to point to NLB
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   depends_on = [aws_lb.nlb] 
