@@ -70,6 +70,69 @@ resource "aws_iam_policy" "eks_cluster_access_poc" {
 }
 
 
+provider "aws" {
+  region = "us-east-1"  # Update with your desired AWS region
+}
+
+# IAM OIDC Identity Provider
+resource "aws_iam_openid_connect_provider" "eks_oidc_provider" {
+  url                   = aws_eks_cluster.eks_cluster.identity.0.oidc.0.issuer
+  client_id_list        = ["sts.amazonaws.com"]
+  thumbprint_list       = aws_eks_cluster.eks_cluster.identity.0.oidc.0.root_certificate_authority.0.thumbprint_list
+}
+
+# IAM Role for RBAC Role Mapping
+resource "aws_iam_role" "eks_rbac_role" {
+  name               = "eks-rbac-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Principal = {
+        Federated = aws_iam_openid_connect_provider.eks_oidc_provider.arn
+      }
+      Action = "sts:AssumeRoleWithWebIdentity"
+      Condition = {
+        StringEquals = {
+          "${aws_iam_openid_connect_provider.eks_oidc_provider.url}:sub" = "system:serviceaccount:kube-system:aws-node"
+        }
+      }
+    }]
+  })
+}
+
+# IAM Role Policy for RBAC Role Mapping
+resource "aws_iam_role_policy_attachment" "eks_rbac_policy_attachment" {
+  role       = aws_iam_role.eks_rbac_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+}
+
+# Kubernetes RBAC Role Binding
+resource "kubernetes_role_binding" "aws_node_role_binding" {
+  metadata {
+    name      = "aws-node-role-binding"
+    namespace = "kube-system"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "system:node"
+  }
+
+  subject {
+    kind      = "User"
+    name      = aws_iam_openid_connect_provider.eks_oidc_provider.url
+    api_group = "rbac.authorization.k8s.io"
+  }
+}
+
+# Output IAM OIDC Identity Provider ARN
+output "oidc_provider_arn" {
+  value = aws_iam_openid_connect_provider.eks_oidc_provider.arn
+}
+
+
 resource "aws_iam_policy_attachment" "eks_cluster_access_attachment" {
   name       = "eks-cluster-access-attachment"
   users      = ["syedmd", "alokp"]  # Replace <USER_NAME> with the individual user's IAM username
