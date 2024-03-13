@@ -55,15 +55,15 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
 }
 
 
-# Update NLB security group to allow traffic from CloudFront
 resource "aws_security_group_rule" "cloudfront_to_nlb" {
-  depends_on = [aws_cloudfront_distribution.eks_cloudfront_distribution]
   type              = "ingress"
-  from_port         = 443
+  from_port         = 80
   to_port           = 443
-  protocol          = "HTTPS"
+  protocol          = "tcp"
   security_group_id = aws_security_group.nlb_sg.id
+  source_security_group_id = aws_security_group.cloudfront_sg.id
 }
+
 
 output "cloudfront_url" {
   value = aws_cloudfront_distribution.eks_cloudfront_distribution.domain_name
