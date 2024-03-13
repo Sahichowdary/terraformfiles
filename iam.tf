@@ -45,3 +45,31 @@ resource "aws_iam_role_policy_attachment" "test_attach" {
 output "test_policy_arn" {
   value = aws_iam_role.test_oidc.arn
 }
+
+
+resource "aws_iam_policy" "eks_cluster_access_poc" {
+  name        = "eks-cluster-access-policy_poc"
+  description = "IAM policy for accessing the EKS cluster"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect    = "Allow",
+        Action    = [
+          "eks:DescribeCluster",
+          "eks:ListClusters",
+          "eks:AccessKubernetesApi",
+          // Add additional permissions as needed
+        ],
+        Resource  = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy_attachment" "eks_cluster_access_attachment" {
+  name       = "eks-cluster-access-attachment"
+  users      = ["syedmd", "alokp"]  # Replace <USER_NAME> with the individual user's IAM username
+  policy_arn = aws_iam_policy.eks_cluster_access.arn
+}
