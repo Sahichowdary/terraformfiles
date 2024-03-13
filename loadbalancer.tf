@@ -41,7 +41,7 @@ resource "aws_security_group" "eks_sg" {
   ingress {
     from_port   = 443
     to_port     = 443
-    protocol    = "HTTPS"
+    protocol    = "https"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -72,7 +72,7 @@ resource "aws_lb_target_group" "eks_target_group" {
   vpc_id      = aws_vpc.private_vpc.id
   target_type = "ip"
   health_check {
-    protocol = "HTTPS"
+    protocol = "https"
     path     = "/"
     port     = "traffic-port"
   }
