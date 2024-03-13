@@ -74,11 +74,8 @@ resource "aws_iam_policy" "eks_cluster_access_poc" {
 
 
 # IAM OIDC Identity Provider
-resource "aws_eks_cluster" "eks_cluster" {
-  name = "demo"
-}
-
 resource "aws_iam_openid_connect_provider" "eks_oidc_provider" {
+  depends_on = [aws_eks_cluster.demo]
   client_id_list  = ["sts.amazonaws.com"]
   thumbprint_list = aws_eks_cluster.demo.identity[0].oidc[0].root_ca_thumbprint_list
   url             = aws_eks_cluster.demo.identity[0].oidc[0].issuer
