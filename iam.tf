@@ -71,5 +71,5 @@ resource "aws_iam_policy" "eks_cluster_access_poc" {
 resource "aws_iam_policy_attachment" "eks_cluster_access_attachment" {
   name       = "eks-cluster-access-attachment"
   users      = ["syedmd", "alokp"]  # Replace <USER_NAME> with the individual user's IAM username
-  policy_arn = aws_iam_policy.eks_cluster_access.arn
+  policy_arn = aws_iam_policy.eks_cluster_access_poc.arn
 }
