@@ -39,10 +39,7 @@ resource "aws_eks_cluster" "demo" {
       aws_subnet.private-us-east-1b.id,
     ]
   }
-
+  version = "1.29"
   depends_on = [aws_iam_role_policy_attachment.demo-AmazonEKSClusterPolicy]
-  enabled_cluster_version {
-    version = "latest"
-  }
 }
 
