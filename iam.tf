@@ -70,10 +70,6 @@ resource "aws_iam_policy" "eks_cluster_access_poc" {
 }
 
 
-provider "aws" {
-  region = "us-east-1"  # Update with your desired AWS region
-}
-
 # IAM OIDC Identity Provider
 resource "aws_iam_openid_connect_provider" "eks_oidc_provider" {
   url                   = aws_eks_cluster.eks_cluster.identity.0.oidc.0.issuer
