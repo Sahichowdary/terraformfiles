@@ -1,4 +1,4 @@
-Copy code
+
 # Create a security group for CloudFront
 resource "aws_security_group" "cloudfront_sg" {
   name        = "cloudfront-sg"
