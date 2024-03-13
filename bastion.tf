@@ -23,7 +23,7 @@ resource "aws_security_group" "bastion_sg-poc" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = bastion-security-group-poc
+    Name = "bastion-security-group-poc"
      }
 }
 
