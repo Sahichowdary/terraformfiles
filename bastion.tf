@@ -25,27 +25,28 @@ resource "aws_security_group" "bastion_sg" {
 }
 
 
-# Create bastion host
 resource "aws_instance" "bastion_host-POC" {
-  instance_type   = "t2.micro" # Set your desired instance type
+  instance_type   = "t2.micro"                                 # Set your desired instance type
   ami             = "ami-07d9b9ddc6cd8dd30"
   subnet_id       = aws_subnet.public-us-east-1a.id
-  security_groups = bastion-security-group
-   key_name        = "aws-poc-demo"                          # Set your key name for SSH access 
-   user_date   =  <<EOF
-   #!/bin/bash
-   apt sudo apt install mysql-server
-   mysql -h ${aws_db_instance.endpoint.my-pocsql.dns_name} -u ${var.rds.username} -p${var.rds.password} 
-   CREATE DATABASE IF NOT EXISTS foodfinder;
-   USE foodfinder;
-   CREATE TABLE IF NOT EXISTS users (first_name VARCHAR(255), last_name VARCHAR(255), username VARCHAR(255), email VARCHAR(255), password VARCHAR(255)); 
-   INSERT INTO users (first_name, last_name, username, email, password) VALUES ('raj', 'kapoor', 'rajKapoor', 'raj.kapoor@gmail.com', 'rajKapoor');
-   EOF
+  security_groups = [aws_security_group.bastion_sg.name]        # Corrected reference to security group name
+  key_name        = "aws-poc-demo"                              # Set your key name for SSH access 
+  user_data       =  <<EOF
+    #!/bin/bash
+    apt sudo apt install mysql-server
+    mysql -h ${aws_db_instance.my-pocsql.endpoint} -u ${var.rds.username} -p${var.rds.password} 
+    CREATE DATABASE IF NOT EXISTS foodfinder;
+    USE foodfinder;
+    CREATE TABLE IF NOT EXISTS users (first_name VARCHAR(255), last_name VARCHAR(255), username VARCHAR(255), email VARCHAR(255), password VARCHAR(255)); 
+    INSERT INTO users (first_name, last_name, username, email, password) VALUES ('raj', 'kapoor', 'rajKapoor', 'raj.kapoor@gmail.com', 'rajKapoor');
+  EOF
 
-   tags = {
-      Name = "Bastion by Terraform"
-   }
+  tags = {
+    Name = "Bastion by Terraform"
+  }
 }
+
+
 
 
 resource "aws_security_group_rule" "db_from_bastion" {
