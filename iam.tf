@@ -77,8 +77,8 @@ resource "aws_iam_policy" "eks_cluster_access_poc" {
 resource "aws_iam_openid_connect_provider" "eks_oidc_provider" {
   depends_on = [aws_eks_cluster.demo]
   client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
-  url             = aws_eks_cluster.eks_cluster.identity[0].oidc[0].issuer
+  thumbprint_list = aws_eks_cluster.demo.identity[0].oidc[0].issuer
+  url             = aws_eks_cluster.demo.identity[0].oidc[0].issuer
 }
 
 # IAM Role for RBAC Role Mapping
