@@ -70,24 +70,31 @@ resource "aws_iam_policy" "eks_cluster_access_poc" {
 }
 
 
+
+
+
 # IAM OIDC Identity Provider
+resource "aws_eks_cluster" "eks_cluster" {
+  name = "demo"
+}
+
 resource "aws_iam_openid_connect_provider" "eks_oidc_provider" {
-  url                   = aws_eks_cluster.demo.identity.0.oidc.0.issuer
-  client_id_list        = ["sts.amazonaws.com"]
-  thumbprint_list       = aws_eks_cluster.demo.identity.0.oidc.0.root_certificate_authority.0.thumbprint_list
+  client_id_list  = ["sts.amazonaws.com"]
+  thumbprint_list = aws_eks_cluster.demo.identity[0].oidc[0].root_ca_thumbprint_list
+  url             = aws_eks_cluster.demo.identity[0].oidc[0].issuer
 }
 
 # IAM Role for RBAC Role Mapping
 resource "aws_iam_role" "eks_rbac_role" {
   name               = "eks-rbac-role"
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = [{
       Effect    = "Allow"
       Principal = {
         Federated = aws_iam_openid_connect_provider.eks_oidc_provider.arn
       }
-      Action = "sts:AssumeRoleWithWebIdentity"
+      Action    = "sts:AssumeRoleWithWebIdentity"
       Condition = {
         StringEquals = {
           "${aws_iam_openid_connect_provider.eks_oidc_provider.url}:sub" = "system:serviceaccount:kube-system:aws-node"
