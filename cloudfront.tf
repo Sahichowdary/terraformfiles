@@ -1,5 +1,6 @@
 # Update CloudFront distribution to point to NLB
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
+  depends_on = [aws_lb.nlb] 
   origin {
     domain_name = aws_lb.nlb.dns_name
     origin_id   = aws_lb.nlb.id
@@ -56,6 +57,7 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
 
 # Update NLB security group to allow traffic from CloudFront
 resource "aws_security_group_rule" "cloudfront_to_nlb" {
+  depends_on = [aws_cloudfront_distribution.eks_cloudfront_distribution]
   type              = "ingress"
   from_port         = 443
   to_port           = 443
