@@ -19,14 +19,5 @@ resource "aws_db_instance" "my-pocsql" {
   auto_minor_version_upgrade = true
   depends_on = [aws_db_subnet_group.rds_subnetgroup, aws_security_group.db_security_group] 
   vpc_security_group_ids = [aws_security_group.db_security_group.id]  # Attach the security group to the RDS instance
-  provisioner "local-exec" {
-   command = <<-EOT
-    mysql -h ${self.endpoint} -u ${var.rds.username} -P${var.rds.password} 
-     -e "CREATE DATABASE IF NOT EXISTS foodfinder; 
-     USE foodfinder; 
-     CREATE TABLE IF NOT EXISTS users (first_name VARCHAR(255), last_name VARCHAR(255), username VARCHAR(255), email VARCHAR(255), password VARCHAR(255));
-     INSERT INTO users (first_name, last_name, username, email, password) VALUES ('raj', 'kapoor', 'rajKapoor', 'raj.kapoor@gmail.com', 'rajKapoor');"
-     exit  
-EOT
-    }
+
 }
