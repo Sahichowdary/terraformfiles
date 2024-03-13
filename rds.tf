@@ -16,6 +16,7 @@ resource "aws_db_instance" "my-pocsql" {
   skip_final_snapshot  = true
   publicly_accessible = var.rds.public_access
   storage_type = "standard"
+  snapshot_identifier = "arn:aws:rds:us-east-1:036965198866:snapshot:mydemopoc"
   auto_minor_version_upgrade = true
   depends_on = [aws_db_subnet_group.rds_subnetgroup, aws_security_group.db_security_group] 
   vpc_security_group_ids = [aws_security_group.db_security_group.id]  # Attach the security group to the RDS instance
