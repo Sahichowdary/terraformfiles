@@ -5,7 +5,6 @@ resource "aws_db_subnet_group" "rds_subnetgroup" {
 
 resource "aws_db_instance" "my-pocsql" {
   allocated_storage    = var.rds.storage
-  name              = "mysqlpoc_sasken"
   identifier           = var.rds.name
   engine               = "mysql"
   engine_version       = var.rds.engine_version
