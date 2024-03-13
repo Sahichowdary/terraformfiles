@@ -14,6 +14,7 @@ resource "aws_db_instance" "my-pocsql" {
   password             = var.rds.password
   parameter_group_name = "default.mysql8.0"
   skip_final_snapshot  = true
+  snapshot_identifier = "mydemopoc01"
   publicly_accessible = var.rds.public_access
   storage_type = "standard"
   depends_on = [aws_db_subnet_group.rds_subnetgroup, aws_security_group.db_security_group] 
