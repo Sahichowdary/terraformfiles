@@ -1,6 +1,6 @@
 rds = {
   name = "foodfinderdbs"
-  storage = 10
+  storage = 20
   engine_version = "8.0"
   username =  "admin"
   password = "admin12345"
