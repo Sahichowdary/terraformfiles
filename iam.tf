@@ -55,18 +55,20 @@ resource "aws_iam_policy" "eks_cluster_access_poc" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect    = "Allow",
-        Action    = [
-          "eks:DescribeCluster",
-          "eks:ListClusters",
-          "eks:AccessKubernetesApi",
+        Effect   = "Allow",
+        Action   = [
+          "eks:*",
+          "ec2:Describe*",
+          "ec2:List*",
+          "ec2:Get*",
           // Add additional permissions as needed
         ],
-        Resource  = "*"
-      }
-    ]
+        Resource = "*",
+      },
+    ],
   })
 }
+
 
 resource "aws_iam_policy_attachment" "eks_cluster_access_attachment" {
   name       = "eks-cluster-access-attachment"
