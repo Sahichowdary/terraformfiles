@@ -35,6 +35,8 @@ resource "aws_instance" "bastion_host-POC" {
   security_groups = [aws_security_group.bastion_sg-poc.id]        # Corrected reference to security group name
   key_name        = "aws-poc-demo"                              # Set your key name for SSH access 
   depends_on = [aws_db_instance.my-pocsql, aws_security_group.bastion_sg-poc]
+  lifecycle { 
+          ignore_changes = [security_groups] }
   tags = {
     Name = "Bastion by Terraform"
   }
