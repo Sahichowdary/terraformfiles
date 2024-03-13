@@ -1,6 +1,6 @@
 terraform {
     backend "s3" {
-      bucket = "tfstate"
+      bucket = "pocterraformbackendjava"
       key = "app-state"
       region = "us-east-1"
     }
