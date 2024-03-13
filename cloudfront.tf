@@ -61,6 +61,7 @@ resource "aws_security_group_rule" "cloudfront_to_nlb" {
   to_port           = 443
   protocol          = "tcp"
   security_group_id = aws_security_group.nlb_sg.id
+  source_security_group_id = aws_security_group.cloudfront_sg.id
 }
 
 
