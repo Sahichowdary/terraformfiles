@@ -39,6 +39,7 @@ variable "loadbalancer_id" {
 variable "rds" {
   type = object({
     name = string
+    name2 = string
     storage = number
     engine_version = string
     username = string
