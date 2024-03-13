@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   depends_on = [aws_lb.nlb] 
   origin {
     domain_name = aws_lb.nlb.dns_name
-    origin_id   = aws_lb.nlb.id
+    origin_id   = aws_lb.nlb
 
     custom_origin_config {
       http_port              = 80
