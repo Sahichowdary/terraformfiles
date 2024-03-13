@@ -1,7 +1,7 @@
-backend "s3" {
-  bucket         = "pocterraformbackendjava"
-  key            = "terraform.tfstate"
-  region         = var.region
-  dynamodb_table = "terraform_locks"
-  encrypt        = true
+terraform {
+    backend "s3" {
+      bucket = "tfstate"
+      key = "app-state"
+      region = "us-east-1"
+    }
 }
