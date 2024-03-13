@@ -1,5 +1,5 @@
-resource "aws_db_subnet_group" "rds_subnetgroup" {
-  name      = "rds-subnet-main"
+resource "aws_db_subnet_group" "rds_subnetgroup01" {
+  name      = "rds-subnet-main01"
   subnet_ids = [aws_subnet.private-us-east-1a.id, aws_subnet.private-us-east-1b.id]
 }
 
