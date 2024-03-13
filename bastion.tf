@@ -24,6 +24,7 @@ resource "aws_security_group" "bastion_sg-poc" {
   }
   tags {
     Name = bastion-security-group-poc
+     }
 }
 
 
