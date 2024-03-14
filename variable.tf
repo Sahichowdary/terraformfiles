@@ -45,7 +45,7 @@ variable "waf_web_acl_arn" {
 }
 
 variable "lb_name" {
-    default = "ae2ffedd0f3594043b798c79362e7157"
+    default = "a81875955f9c747dea66d3466423ec51"
 }
 
 
