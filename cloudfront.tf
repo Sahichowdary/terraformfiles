@@ -27,9 +27,11 @@ resource "aws_cloudfront_distribution" "ekscdn" {
     max_ttl                = 86400
     compress               = true
     smooth_streaming       = false
+   
+   # Add SSL certificate from ACM
     viewer_certificate {
-      cloudfront_default_certificate = true
-    }
+        acm_certificate_arn = aws_acm_certificate.cert.arn
+        ssl_support_method  = "sni-only"
   }
 }
 
