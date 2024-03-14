@@ -31,6 +31,7 @@ resource "aws_cloudfront_distribution" "ekscdn" {
       cloudfront_default_certificate = true
     }
   }
+}
 
 output "cloudfront_distribution_arn" {
   value = aws_cloudfront_distribution.ekscdn.arn
