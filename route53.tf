@@ -50,3 +50,18 @@ resource "aws_route53_record" "apex" {
     evaluate_target_health     = true
   }
 }
+
+
+# AWS Route53 record resource for the apex domain (root domain).
+resource "aws_route53_record" "api" {
+  zone_id = data.aws_route53_zone.zone.zone_id
+  name    = "api.${var.domain-name}"
+  type    = "A"
+
+  alias {
+    name                       = aws_cloudfront_distribution.eks_cloudfront_distribution1.domain_name
+    zone_id                    = aws_cloudfront_distribution.eks_cloudfront_distribution1.hosted_zone_id
+    evaluate_target_health     = true
+  }
+}
+
