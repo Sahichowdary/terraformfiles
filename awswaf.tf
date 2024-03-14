@@ -59,3 +59,10 @@ resource "aws_wafv2_regex_pattern_set" "poc" {
 output "waf_web_acl_arn" {
   value = aws_wafv2_web_acl.pocawswaf.arn
 }
+
+
+resource "aws_wafv2_web_acl_association" "pocwafaclcnd" {
+  resource_arn = var.cloudfront_distribution_arn
+  web_acl_arn  = var.waf_web_acl_arn
+}
+
