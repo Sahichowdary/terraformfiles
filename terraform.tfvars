@@ -5,5 +5,5 @@ rds = {
   engine_version = "8.0"
   username =  "admin"
   password = "admin12345"
-  public_access = true
+  public_access = false
 }
