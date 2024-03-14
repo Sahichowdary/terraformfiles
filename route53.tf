@@ -34,7 +34,7 @@ resource "aws_route53_record" "www" {
   alias {
     name                       = aws_cloudfront_distribution.eks_cloudfront_distribution.domain_name
     zone_id                    = aws_cloudfront_distribution.eks_cloudfront_distribution.hosted_zone_id
-    evaluate_target_health     = false
+    evaluate_target_health     = true
   }
 }
 
@@ -47,6 +47,6 @@ resource "aws_route53_record" "apex" {
   alias {
     name                       = aws_cloudfront_distribution.eks_cloudfront_distribution.domain_name
     zone_id                    = aws_cloudfront_distribution.eks_cloudfront_distribution.hosted_zone_id
-    evaluate_target_health     = false
+    evaluate_target_health     = true
   }
 }
