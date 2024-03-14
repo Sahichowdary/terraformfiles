@@ -41,7 +41,7 @@ variable "cloudfront_distribution_arn" {
 }
 
 variable "waf_web_acl_arn" {
-    default = "arn:aws:wafv2:us-east-1:036965198866:global/webacl/poc-web-acl/eccbe2bb-0171-416a-8eb1-16d84dcfbd70"
+    default = "arn:aws:wafv2:us-east-1:036965198866:global/webacl/pocwebacl/6f67ead5-4324-4d9e-a09a-4bf27c803630"
 }
 
 variable "lb_name" {
