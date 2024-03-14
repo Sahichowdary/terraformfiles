@@ -63,7 +63,7 @@ resource "aws_security_group" "eks_sg" {
   }
 }
 
-data "aws_elb" "test" {
+data "aws_elb" "elbfood" {
   name = var.lb_name
 }
 
