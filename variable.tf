@@ -36,9 +36,15 @@ variable "loadbalancer_id" {
 }
 
 
+variable "cloudfront_distribution_arn" {
+    default = ""arn:aws:cloudfront::036965198866:distribution/E1W8110DKYMBQ1""  
+}
+
 variable "lb_name" {
     default = "ae2ffedd0f3594043b798c79362e7157"  
 }
+
+
 
 variable "rds" {
   type = object({
