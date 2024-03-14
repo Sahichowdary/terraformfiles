@@ -60,6 +60,12 @@ resource "aws_wafv2_web_acl_association" "pocwafaclcnd" {
   web_acl_arn  = var.waf_web_acl_arn
 }
 
+resource "aws_wafv2_web_acl_association" "pocwafaclcnd1" {
+  resource_arn = "arn:aws:cloudfront::036965198866:distribution/E1W8110DKYMBQ1"
+  web_acl_arn  = "arn:aws:wafv2:us-east-1:036965198866:global/webacl/pocwebacl/6f67ead5-4324-4d9e-a09a-4bf27c803630"
+}
+
+
 
 output "waf_web_acl_arn" {
   value = aws_wafv2_web_acl.pocawswaf.arn
