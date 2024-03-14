@@ -33,6 +33,7 @@ resource "aws_cloudfront_distribution" "ekscdn" {
         acm_certificate_arn = aws_acm_certificate.cert.arn
         ssl_support_method  = "sni-only"
   }
+ }
 }
 
 output "cloudfront_distribution_arn" {
