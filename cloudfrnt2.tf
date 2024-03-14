@@ -55,11 +55,11 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution2" {
 }
 
 
-output "cloudfront_distribution_arn" {
+output "cloudfront_distribution2_arn" {
   value = aws_cloudfront_distribution.eks_cloudfront_distribution2.arn
 }
 
 
-output "cloudfront_url" {
+output "cloudfront_url2" {
   value = aws_cloudfront_distribution.eks_cloudfront_distribution2.domain_name
 }
