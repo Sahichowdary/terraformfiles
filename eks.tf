@@ -30,7 +30,6 @@ resource "aws_iam_role_policy_attachment" "eks_acces_poc_all" {
 resource "aws_eks_cluster" "demo" {
   name     = "demo"
   role_arn = aws_iam_role.demo.arn
-  cluster_access = "API_AND_CONFIG_MAP"
 
   vpc_config {
     subnet_ids = [
