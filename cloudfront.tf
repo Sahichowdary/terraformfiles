@@ -1,6 +1,6 @@
 resource "aws_cloudfront_distribution" "ekscdn" {
   origin {
-    domain_name = aws_elb.elbfood.dns_name
+    domain_name = data.aws_elb.elbfood.dns_name
     origin_id   = "ELBOrigin"
   }
 
