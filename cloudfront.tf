@@ -91,6 +91,10 @@ resource "aws_security_group_rule" "cloudfront_to_nlb" {
   source_security_group_id = aws_security_group.cloudfront_sg.id
 }
 
+output "cloudfront_distribution_arn" {
+  value = aws_cloudfront_distribution.eks_cloudfront_distribution.arn
+}
+
 
 output "cloudfront_url" {
   value = aws_cloudfront_distribution.eks_cloudfront_distribution.domain_name
