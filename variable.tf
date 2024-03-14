@@ -40,6 +40,10 @@ variable "cloudfront_distribution_arn" {
     default = "arn:aws:cloudfront::036965198866:distribution/E1W8110DKYMBQ1"
 }
 
+variable "waf_web_acl_arn" {
+    default = "arn:aws:wafv2:us-east-1:036965198866:global/webacl/poc-web-acl/eccbe2bb-0171-416a-8eb1-16d84dcfbd70"
+}
+
 variable "lb_name" {
     default = "ae2ffedd0f3594043b798c79362e7157"  
 }
