@@ -43,7 +43,7 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = "aws_lb.nlb.arn"
+    target_origin_id = "data.aws_elb.elbfood"
 
     forwarded_values {
       query_string = false
