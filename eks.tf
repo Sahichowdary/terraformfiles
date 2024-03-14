@@ -22,7 +22,7 @@ resource "aws_iam_role_policy_attachment" "demo-AmazonEKSClusterPolicy" {
   role       = aws_iam_role.demo.name
 }
 
-resource "aws_iam_role_policy_attachment" "demo-AmazonEKSClusterPolicy" {
+resource "aws_iam_role_policy_attachment" "demo-AmazonEKSClusterPolicy01" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterAdminPolicy"
   role       = aws_iam_role.demo.name
 }
