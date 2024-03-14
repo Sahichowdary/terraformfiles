@@ -63,6 +63,9 @@ resource "aws_security_group" "eks_sg" {
   }
 }
 
+data "aws_elb" "test" {
+  name = var.lb_name
+}
 
 # Create Target Group for EKS Cluster
 resource "aws_lb_target_group" "eks_target_group" {
