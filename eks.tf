@@ -39,6 +39,12 @@ resource "aws_eks_cluster" "demo" {
       aws_subnet.public-us-east-1a.id,
       aws_subnet.private-us-east-1b.id,
     ]
+    # Allow public access to the API server endpoint
+    endpoint_public_access = true
+
+    # Optionally, specify the CIDR block for public access
+    public_access_cidrs = ["0.0.0.0/0"]
+     
   }
   version = "1.29"
   depends_on = [aws_iam_role_policy_attachment.demo-AmazonEKSClusterPolicy]
