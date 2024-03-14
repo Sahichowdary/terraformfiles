@@ -1,7 +1,7 @@
 resource "aws_cloudfront_distribution" "ekscdn" {
   origin {
     domain_name = data.aws_elb.elbfood.dns_name
-    origin_id   = "ELBOrigin"
+    origin_id   = data.aws_elb.elbfood.id
   }
 
   enabled             = true
@@ -9,7 +9,7 @@ resource "aws_cloudfront_distribution" "ekscdn" {
   default_root_object = "index.html"
 
   default_cache_behavior {
-    target_origin_id       = "ELBOrigin"
+    target_origin_id       = data.aws_elb.elbfood.id
     viewer_protocol_policy = "redirect-to-https"
 
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
@@ -48,4 +48,3 @@ output "cloudfront_distribution_arn" {
 output "cloudfront_url" {
   value = aws_cloudfront_distribution.ekscdn.domain_name
 }
-
