@@ -48,6 +48,9 @@ variable "lb_name" {
     default = "a81875955f9c747dea66d3466423ec51"
 }
 
+variable "lb_name" {
+    default = "afd9d8463920f4813a9ece075be506e5"
+}
 
 
 variable "rds" {
