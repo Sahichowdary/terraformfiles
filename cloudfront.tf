@@ -29,8 +29,8 @@ resource "aws_security_group" "cloudfront_sg" {
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution" {
   depends_on = [aws_lb.nlb] 
   origin {
-    domain_name = aws_lb.nlb.dns_name
-    origin_id   = aws_lb.nlb.arn
+    domain_name = aws_elb.elbfood.dns_name
+    origin_id   = aws_elb.elbfood.arn
 
     custom_origin_config {
       http_port              = 80
