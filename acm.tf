@@ -1,5 +1,5 @@
 
-resource "aws_acm_certificate" "example" {
+resource "aws_acm_certificate" "cert" {
 domain_name = "saskenpoc.com"
   subject_alternative_names = [
        "*.saskenpoc.com",    
