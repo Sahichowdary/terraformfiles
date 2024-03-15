@@ -28,7 +28,7 @@ variable "eks_encryption_key" {
 }
 
 variable "domain-name" {
-    default = "*.saskenpoc.com"
+    default = "*saskenpoc.com"
 }
 
 variable "loadbalancer_id" {
