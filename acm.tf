@@ -23,7 +23,6 @@ resource "aws_acm_certificate_validation" "cert" {
 resource "aws_route53_record" "acm_validation" {
   for_each = {
     for validation_option in aws_acm_certificate.cert.domain_validation_options :
-    _cec692715b970c73ce816bc3fd8c0434 => validation_option
     }
   zone_id = data.aws_route53_zone.zone.zone_id
   name    = each.value.resource_record_name
