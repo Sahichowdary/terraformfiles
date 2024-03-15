@@ -1,5 +1,4 @@
 
-# Update CloudFront distribution to point to NLB
 resource "aws_cloudfront_distribution" "eks_cloudfront_distribution2" {
   origin {
     domain_name = data.aws_elb.elbfood2.dns_name
