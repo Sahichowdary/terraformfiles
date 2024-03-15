@@ -17,13 +17,14 @@ resource "aws_cloudfront_distribution" "eks_cloudfront_distribution2" {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "data.aws_elb.elbfood2"
-
+    legacy_cache_behavior = true
     forwarded_values {
       query_string = false
 
       cookies {
         forward = "none"
       }
+      headers = "all"
     }
 
     viewer_protocol_policy = "redirect-to-https"
