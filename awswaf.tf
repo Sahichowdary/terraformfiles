@@ -1,5 +1,5 @@
 resource "aws_wafv2_web_acl" "pocawswaf" {
-  name        = "pocwebacl"
+  name        = "pocwebacl2"
   description = "poc for foodfinder WAF Web ACL"
   scope       = "CLOUDFRONT"
 
@@ -53,6 +53,11 @@ resource "aws_wafv2_regex_pattern_set" "poc" {
   regular_expression {
     regex_string = "saskenpoc.com"
   }
+}
+
+
+data "aws_waf_web_acl" "wafacl" {
+  name = "pocwebacl"
 }
 
 
