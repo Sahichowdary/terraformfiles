@@ -1,7 +1,7 @@
 # ACM certificate resource with the domain name and DNS validation method, supporting subject alternative names
 resource "aws_acm_certificate" "cert" {
   domain_name            = var.domain-name
-  subject_alternative_names = [*.var.domain-name]
+  subject_alternative_names = [*.${var.domain-name}]
   validation_method      = "DNS"
 
   lifecycle {
